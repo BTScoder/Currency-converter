@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import "tailwindcss";
+
+@theme {
+    --font-mono: 'JetBrains Mono', monospace;
+    --color-lime: #CEF739;
+    --color-green: #42EB05;
+    --color-neutral-900: #0A0A0A;
+    --color-neutral-700: #171719;
+    --color-neutral-600: #202022;
+    --color-neutral-500: #2E2E2E;
+    --color-neutral-200: #D9D9D9;
+    --color-neutral-50: #FFF;
+
+}
+
+/* Chrome, Edge, Safari */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
