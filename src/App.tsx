@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from "react"
-import type { Country, Currency, Log } from "./types/types"
+import { useEffect, useState } from "react"
+import type { Currency } from "./types/types"
 // import useLocalStorage from "./hooks/localStorage"
 import NavBar from "./components/NavBar"
 import { COUNTRIES } from "./countries"

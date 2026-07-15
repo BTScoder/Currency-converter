@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react"
-import { AreaSeries, createChart, ColorType, TickMarkType, type Time } from "lightweight-charts"
+import { AreaSeries, createChart, ColorType } from "lightweight-charts"
 
 type ChartData = {
     time: string,
@@ -55,18 +55,18 @@ function Chart(props: ChartProps) {
         });
         chart.timeScale().fitContent();
 
-        chart.applyOptions({
-            localization: {
-                tickMarkFormatter: (time: Time, tickMarkType: TickMarkType, locale: string) => {
-                    const date = new Date(time.year, time.month - 1, time.day);
+        // chart.applyOptions({
+        //     localization: {
+        //         tickMarkFormatter: (time: Time, tickMarkType: TickMarkType, locale: string) => {
+        //             const date = new Date(time.year, time.month - 1, time.day);
 
-                    return date.toLocaleDateString(locale, {
-                        month: "short",
-                        day: "numeric",
-                    });
-                },
-            },
-        })
+        //             return date.toLocaleDateString(locale, {
+        //                 month: "short",
+        //                 day: "numeric",
+        //             });
+        //         },
+        //     },
+        // })
 
         chart.timeScale().applyOptions({
             borderColor: "none",

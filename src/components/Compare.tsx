@@ -55,6 +55,10 @@ function Compare() {
                             </div>
                         </div>
                     ))}
+
+                    <span className="text-xs font-mono text-lime my-3"
+                        onClick={() => setSpliceAmount((prev) => prev + 8)}
+                    >Show more</span>
                 </div>
             </section>
         </>
