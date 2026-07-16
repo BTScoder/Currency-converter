@@ -5,7 +5,11 @@ export type Country = {
     start_date: string,
     symbol: string
 }
-
+export type Favourite = {
+    base: string,
+    quote: string,
+    rate: number
+}
 export type Currency = {
     date: string,
     base: string,

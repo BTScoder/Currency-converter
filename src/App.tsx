@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
-import type { Currency } from "./types/types"
-// import useLocalStorage from "./hooks/localStorage"
-import NavBar from "./components/NavBar"
-import { COUNTRIES } from "./countries"
-import Dropdown from "./components/Dropdown"
-import { AnimatePresence } from "framer-motion";
-import Tabs from "./components/Tabs"
+import type { Currency, Favourite } from "./types/types"
+import useLocalStorage from "./hooks/localStorage"
 import { useCurrencyContext } from "./contexts/CurrencyContext"
+import { COUNTRIES } from "./countries"
+import NavBar from "./components/NavBar"
+import Dropdown from "./components/Dropdown"
+import Tabs from "./components/Tabs"
+import { AnimatePresence } from "framer-motion";
+// import Star from "/images/icon-star.svg"
 
 function App() {
   const { baseCurrency, setBaseCurrency, quoteCurrency, setQuoteCurrency } = useCurrencyContext();
@@ -15,6 +16,8 @@ function App() {
   const [baseAmount, setBaseAmount] = useState<number>(0.00)
   const [quoteAmount, setQuoteAmount] = useState<number>(0.00)
   const [lastEdited, setLastEdited] = useState<"to" | "from">("from")
+  const [favourite, setFavourite] = useLocalStorage("favourite", [])
+  const isAlreadyFavourite = favourite.some((fav: Favourite) => fav.base === baseCurrency && fav.quote === quoteCurrency)
 
   async function fetchRates() {
     let calculatedAmount: number;
@@ -43,6 +46,25 @@ function App() {
   const swapCurrencies = () => {
     setQuoteCurrency(baseCurrency)
     setBaseCurrency(quoteCurrency)
+  }
+
+  const handleFavourites = () => {
+
+
+    if (isAlreadyFavourite) {
+      const updatedFqavourites = favourite.filter((fav: Favourite) => !(fav.base === baseCurrency && fav.quote === quoteCurrency))
+      setFavourite(updatedFqavourites)
+      return
+    };
+
+    const newFavorite = {
+      base: baseCurrency,
+      quote: quoteCurrency,
+      rate: quoteAmount / baseAmount
+    }
+
+    setFavourite([...favourite, newFavorite])
+
   }
 
   return (
@@ -125,9 +147,11 @@ function App() {
           <section className="border-t border-dotted border-neutral-500 bg-neutral-600 rounded-b-2xl p-4 space-y-4 mb-10">
             <p className="text-center text-white font-mono text-[10px]">1 USD = 0.85 EUR</p>
             <div className="flex items-center justify-center gap-4 ">
-              <button className="px-3 rounded-2xl py-2 bg-lime text-black uppercase font-mono flex items-center  gap-2">
-                <img src="/images/icon-star.svg" alt="favourite" className="h-4 w-4 bg-lime" />
-                Favourited
+              <button className="px-3 rounded-2xl py-2 bg-neutral-600 text-neutral-200 uppercase font-mono flex items-center gap-2 border-2 border-neutral-200"
+                onClick={handleFavourites}
+              >
+                {/* <Star /> */}
+                Favourite
               </button>
               <button className="px-3 py-2 border-2 border-lime rounded-2xl text-white  uppercase font-mono">
                 Log Conversion
