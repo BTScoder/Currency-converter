@@ -6,6 +6,7 @@ export type Country = {
     symbol: string
 }
 export type Favourite = {
+    date: string,
     base: string,
     quote: string,
     rate: number

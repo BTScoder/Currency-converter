@@ -13,7 +13,7 @@ function Compare() {
     const allowedCurrencies = rates.filter(rate => allowedCodes.includes(rate.quote))
     const [favourite, setFavourite] = useLocalStorage("favourite", [])
 
-    // const []
+
     useEffect(() => {
         const getRates = async () => {
             const data = await fetchRates()
@@ -34,6 +34,7 @@ function Compare() {
             return
         }
         const newFavourite = {
+            date: new Date().toISOString().split("T")[0],
             base: baseCurrency,
             quote: quoteCurrency,
             rate: rate
