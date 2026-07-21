@@ -1,13 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-
+import type { Log } from "../types/types";
 import History from "./History"
 import Compare from "./Compare"
 import Favorites from "./Favorites"
 import Logs from "./Logs"
 function Tabs() {
     const dropdownRef = useRef<HTMLDivElement>(null)
-    const [activeTab, setActiveTab] = useState<"history" | "compare" | "favorites" | "logs">("favorites")
+    const [activeTab, setActiveTab] = useState<"history" | "compare" | "favorites" | "logs">("logs")
     const [isOpen, setIsOpen] = useState(false)
 
     useEffect(() => {

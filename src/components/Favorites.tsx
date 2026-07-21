@@ -45,8 +45,12 @@ function Favorites() {
             </div>
 
             <div className="space-y-3">
-
-                {changes.map((fav: Favourite[], index: number) => {
+                {favourite.length === 0 ? (
+                    <div className="flex flex-col items-center py-10">
+                        <h1 className="text-neutral-100 font-mono text-[20px] mb-4">No Pinned Pairs yet </h1>
+                        <p className="text-neutral-200 font-mono text-[14px] text-center">Pin a pair to track its rate here. Tap the star icon on any conversion or comparison row.</p>
+                    </div>
+                ) : changes.map((fav: Favourite[], index: number) => {
                     const change = ((fav[0].rate - fav[1].rate) / fav[1].rate * 100).toFixed(2)
                     return (
                         <div className="flex items-center justify-between p-3 bg-neutral-500 rounded-lg"
@@ -73,6 +77,33 @@ function Favorites() {
                     )
 
                 })}
+                {/* {changes.map((fav: Favourite[], index: number) => {
+                    const change = ((fav[0].rate - fav[1].rate) / fav[1].rate * 100).toFixed(2)
+                    return (
+                        <div className="flex items-center justify-between p-3 bg-neutral-500 rounded-lg"
+                            key={`${fav[1].base}-${fav[1].quote}`}
+                            onClick={() => removeFavourite(fav[1].base, fav[1].quote)}
+                        >
+                            <div className="flex items-center gap-1">
+                                <p className="text-neutral-50 text-[14px] font-mono">{fav[1].base}</p>
+                                <span className="text-neutral-50 text-[14px]">→</span>
+                                <p className="text-neutral-50 text-[14px] font-mono">{fav[1].quote}</p>
+                            </div>
+                            <div className="flex items-center gap-5">
+                                <div className="flex flex-col ">
+                                    <p className="text-[16px] text-neutral-50 font-mono">{fav[1].rate.toFixed(2)}</p>
+                                    <p className="text-green text-[10px] font-mono">+{change}</p>
+                                </div>
+                                <div className="border-2 border-lime p-2 rounded-lg cursor-pointer">
+                                    <img src="/images/icon-star-filled.svg" alt="star"
+
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    )
+
+                })} */}
             </div>
 
         </section>

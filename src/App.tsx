@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import type { Currency, Favourite } from "./types/types"
+import type { Currency, Favourite, Log } from "./types/types"
 import useLocalStorage from "./hooks/localStorage"
 import { useCurrencyContext } from "./contexts/CurrencyContext"
 import { COUNTRIES } from "./countries"
@@ -7,6 +7,8 @@ import NavBar from "./components/NavBar"
 import Dropdown from "./components/Dropdown"
 import Tabs from "./components/Tabs"
 import { AnimatePresence } from "framer-motion";
+import { useLogContext } from "./contexts/LogsContext"
+import { base } from "framer-motion/client"
 // import Star from "/images/icon-star.svg"
 
 function App() {
@@ -18,6 +20,9 @@ function App() {
   const [lastEdited, setLastEdited] = useState<"to" | "from">("from")
   const [favourite, setFavourite] = useLocalStorage("favourite", [])
   const isAlreadyFavourite = favourite.some((fav: Favourite) => fav.base === baseCurrency && fav.quote === quoteCurrency)
+  const { logs, addNewLog } = useLogContext()
+
+
 
   async function fetchRates() {
     let calculatedAmount: number;
@@ -66,6 +71,21 @@ function App() {
     setFavourite([...favourite, newFavorite])
 
   }
+
+  const handleNewLog = () => {
+    if (baseAmount === 0 || quoteAmount === 0) return
+    const newLog: Log = {
+      id: crypto.randomUUID(),
+      from: baseCurrency,
+      to: quoteCurrency,
+      amountSent: baseAmount,
+      amountReceived: quoteAmount,
+      time: new Date().toISOString()
+    }
+    addNewLog(newLog)
+  }
+
+
 
   return (
     <>
@@ -153,7 +173,9 @@ function App() {
                 {/* <Star /> */}
                 Favourite
               </button>
-              <button className="px-3 py-2 border-2 border-lime rounded-2xl text-white  uppercase font-mono">
+              <button className="px-3 py-2 border-2 border-lime rounded-2xl text-white  uppercase font-mono"
+                onClick={() => handleNewLog()}
+              >
                 Log Conversion
               </button>
             </div>
